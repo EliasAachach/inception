@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+  nginx:
+    build: ./requirements/nginx/
+    container_name: nginx
+    ports:
+      - 443:443
+    depends_on:
+      - php-fpm
+    volumes:
+      - wp_files:/var/www/html
+    networks:
+      - inception
+    restart: on-failure
+
+  php-fpm:
+    build: ./requirements/php-fpmWordpress/
+    container_name: php-fpm
+    ports:
+      - 127.0.0.1:9000:9000
+    volumes:
+      - wp_files:/var/www/html
+    networks:
+      - inception
+    restart: on-failure
+
+  mariadb:
+    build: ./requirements/mariadb/
+    container_name: mariadb
+    ports:
+      - 127.0.0.1:3306:3306
+    volumes:
+      - wp_files:/var/www/html
+    networks:
+      - inception
+    restart: on-failure
+
+networks:
+  inception:
+
+volumes:
+  wp_files:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/elaachac/data/wp_files
+      o: bind
+#  db_files:
