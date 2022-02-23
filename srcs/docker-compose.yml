@@ -7,20 +7,22 @@ services:
     ports:
       - 443:443
     depends_on:
-      - php-fpm
+      - wordpress
     volumes:
       - wp_files:/var/www/html
     networks:
       - inception
     restart: on-failure
 
-  php-fpm:
-    build: ./requirements/php-fpmWordpress/
+  wordpress:
+    build: ./requirements/wordpress/
     container_name: php-fpm
     ports:
       - 127.0.0.1:9000:9000
     volumes:
       - wp_files:/var/www/html
+    env_file:
+      - ./.env
     networks:
       - inception
     restart: on-failure
@@ -31,7 +33,9 @@ services:
     ports:
       - 127.0.0.1:3306:3306
     volumes:
-      - wp_files:/var/www/html
+      - db_files:/var/lib/mysql
+    env_file:
+      - ./.env
     networks:
       - inception
     restart: on-failure
@@ -46,4 +50,9 @@ volumes:
       type: none
       device: /home/elaachac/data/wp_files
       o: bind
-#  db_files:
+  db_files:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/elaachac/data/db_files
+      o: bind
