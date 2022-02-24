@@ -1,4 +1,4 @@
-if [ ! -d /var/lib/mysql/wordpress ]; then
+if [ ! -d /var/lib/mysql/${DB_NAME} ]; then
 	echo "First run"
 	mysqld&
 	until mysqladmin ping; do
@@ -14,5 +14,7 @@ if [ ! -d /var/lib/mysql/wordpress ]; then
     mysql -u root -e "FLUSH PRIVILEGES;"
 	killall mysqld
 	echo "End first run"
+	else
+		echo "database already created"
 fi
 mysqld
