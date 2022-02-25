@@ -48,11 +48,11 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/elaachac/data/wp_files
+      device: /home/kali/data/wp_files
       o: bind
   db_files:
     driver: local
     driver_opts:
       type: none
-      device: /home/elaachac/data/db_files
+      device: /home/kali/data/db_files
       o: bind

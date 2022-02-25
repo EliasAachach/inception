@@ -1,8 +1,9 @@
 NAME = inception
 
 all: 
-	@ mkdir -p /home/elaachac/data/wp_files/
-	@ mkdir -p /home/elaachac/data/db_files/
+	@ echo '127.0.0.1	elaachac.42.fr' | sudo tee -a /etc/hosts #tester avec seulement echo >>
+	@ mkdir -p /home/kali/data/wp_files/
+	@ mkdir -p /home/kali/data/db_files/
 	@ docker-compose -f ./srcs/docker-compose.yml up -d --build
 
 up:
@@ -15,8 +16,8 @@ clean: down
 	@ cd $(SRCS) && docker container prune; 
 
 fclean: clean
-	@ sudo rm -rf /home/elaachac/data/wp_files
-	@ sudo rm -rf /home/elaachac/data/db_files
+	@ sudo rm -rf /home/kali/data/wp_files
+	@ sudo rm -rf /home/kali/data/db_files
 	@ docker system prune -a
 
 
