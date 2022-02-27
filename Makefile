@@ -1,7 +1,10 @@
 NAME = inception
 
-all: 
-	@ echo '127.0.0.1	elaachac.42.fr' | sudo tee -a /etc/hosts #tester avec seulement echo >>
+all:
+ifeq ("$(wildcard .first_launch)", "")
+	@ sudo echo '127.0.0.1	elaachac.42.fr' | sudo tee -a /etc/hosts # >> apres echo a tester
+	@ touch .first_launch
+endif
 	@ mkdir -p /home/kali/data/wp_files/
 	@ mkdir -p /home/kali/data/db_files/
 	@ docker-compose -f ./srcs/docker-compose.yml up -d --build
@@ -19,6 +22,7 @@ fclean: clean
 	@ sudo rm -rf /home/kali/data/wp_files
 	@ sudo rm -rf /home/kali/data/db_files
 	@ docker system prune -a
+	@ rm -f ".first_launch"
 
 
 
