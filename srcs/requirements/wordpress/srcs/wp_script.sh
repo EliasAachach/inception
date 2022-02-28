@@ -2,7 +2,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	echo "First run"
 	cd /var/www/html
 	wp core download --allow-root # Download wordpress
-	until mysqladmin -hmariadb -uwp_superuser -pwp_superuser ping; do
+	until mysqladmin -hmariadb -u${DB_USER} -p${DB_USERPSWRD} ping; do
 		sleep 2
 	done
 	wp config create --dbname=${DB_NAME} --dbuser=${DB_USER} --dbpass=${DB_USERPSWRD} --dbhost=mariadb --dbcharset="utf8" --dbcollate="utf8_general_ci" --allow-root # Configure the DB

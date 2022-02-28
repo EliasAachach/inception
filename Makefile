@@ -5,8 +5,8 @@ ifeq ("$(wildcard .first_launch)", "")
 	@ sudo echo '127.0.0.1	elaachac.42.fr' | sudo tee -a /etc/hosts # >> apres echo a tester
 	@ touch .first_launch
 endif
-	@ mkdir -p /home/kali/data/wp_files/
-	@ mkdir -p /home/kali/data/db_files/
+	@ mkdir -p /home/elaachac/data/wp_files/
+	@ mkdir -p /home/elaachac/data/db_files/
 	@ docker-compose -f ./srcs/docker-compose.yml up -d --build
 
 up:
@@ -16,11 +16,11 @@ down:
 	@ docker-compose -f ./srcs/docker-compose.yml down
 
 clean: down
-	@ cd $(SRCS) && docker container prune; 
+	@ docker container prune; 
 
 fclean: clean
-	@ sudo rm -rf /home/kali/data/wp_files
-	@ sudo rm -rf /home/kali/data/db_files
+	@ sudo rm -rf /home/elaachac/data/wp_files
+	@ sudo rm -rf /home/elaachac/data/db_files
 	@ docker system prune -a
 	@ rm -f ".first_launch"
 
