@@ -12,6 +12,9 @@ if [ ! -d /var/lib/mysql/${DB_NAME} ]; then
     mysql -u root -e "CREATE USER '${DB_USER}'@'%' IDENTIFIED BY '${DB_USERPSWRD}';"
     mysql -u root -e "GRANT ALL ON db_wordpress.* TO '${DB_USER}'@'%';"
     mysql -u root -e "FLUSH PRIVILEGES;"
+	mysql -e "DELETE FROM mysql.user WHERE user=''"
+	mysql -e "DELETE FROM mysql.user WHERE user='root'"
+	mysql -e "FLUSH PRIVILEGES"
 	killall mysqld
 	echo "End first run"
 	else
