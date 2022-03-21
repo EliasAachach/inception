@@ -1,8 +1,9 @@
 NAME = inception
 
-all:
-ifeq ("$(wildcard .first_launch)", "")
-	@ sudo echo '127.0.0.1	elaachac.42.fr' | sudo tee -a /etc/hosts # >> apres echo a tester
+HOST_PRESENT = $(shell cat /etc/hosts | grep elaachac.42.fr > /dev/null; echo $$?)
+all: 
+ifneq ($(HOST_PRESENT), 0)
+	@ sudo echo '127.0.0.1	elaachac.42.fr' | sudo tee -a /etc/hosts
 	@ touch .first_launch
 endif
 	@ mkdir -p /home/elaachac/data/wp_files/

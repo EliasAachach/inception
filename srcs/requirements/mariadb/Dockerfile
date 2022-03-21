@@ -16,5 +16,8 @@ RUN apt-get -y install mariadb-server mariadb-client && \
 COPY ./50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 COPY ./script.sh /root/script.sh
 
+RUN		ln -sf /dev/stdout /var/log/mysql/mariadb.log	&& \
+		ln -sf /dev/stderr /var/log/mysql/error.log
+
 # script to launch mariadb,  create users and DB
 ENTRYPOINT bash /root/script.sh
